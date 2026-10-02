@@ -6,10 +6,17 @@
   <title>Happy Birthday — A Special Gift 🎂</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Gaegu:wght@400;700&display=swap" rel="stylesheet"/>
 
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    @font-face{
+      font-family:'Z10Cartoon';
+      src:url('Z10-Cartoon.ttf') format('truetype');
+      font-weight:100 900;
+      font-style:normal;
+      font-display:swap;
+    }
     :root{
       --pink:      #3B82F6;
       --pink-lt:   #BFDBFE;
@@ -102,9 +109,9 @@
     @keyframes pulseBtnGlow{0%,100%{box-shadow:0 8px 28px rgba(30,159,233,.35)}50%{box-shadow:0 8px 28px rgba(30,159,233,.35),0 0 0 12px rgba(30,159,233,0)}}
     .start-btn:hover{transform:scale(1.06) translateY(-2px);box-shadow:0 14px 36px rgba(30,159,233,.45)}
     .start-btn:active{transform:scale(.97)}
-
+    .lock-hint{font-family:'Z10Cartoon',var(--round);font-size:.8rem;color:var(--muted);margin-bottom:18px;text-align:center;line-height:1.5}
     /* ══════════ PAGE 2: LOCK ══════════ */
-    #pg-lock{background:url('images/templates/better-together/lock-bg.jpeg') center/cover no-repeat, var(--white)}
+    #pg-lock{background:url('lock-bg.jpeg') center/cover no-repeat, var(--white)}
 
     .lock-panel{width:min(380px,100%);padding:2.5rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:0}
     .lock-bow{font-size:36px;margin-bottom:.4rem;animation:cakeFloat 3s ease-in-out infinite}
@@ -150,50 +157,62 @@
     .menu-card-heart{font-size:14px;color:var(--pink-lt)}
 
     /* ══════════ PAGE 4: MEMORIES ══════════ */
-    #pg-memories{background:linear-gradient(180deg,#F1F9FE 0%,#E2F3FD 100%)}
-    .memories-inner{position:relative;z-index:1;text-align:center;padding:5rem 1.5rem 3rem;width:100%;max-width:480px}
+    #pg-memories{background:linear-gradient(180deg,#4A9BD9 0%,#7DBDE8 45%,#BFE3FA 100%);justify-content:flex-start;scroll-behavior:smooth}
+    .memories-inner{position:relative;z-index:1;width:100%;max-width:440px;padding:5.5rem 1.25rem 4rem;text-align:center}
     .section-title{font-family:var(--script);font-weight:800;letter-spacing:-0.01em;font-size:clamp(1.8rem,5vw,2.3rem);color:var(--rose-lt);margin-bottom:.25rem}
     .section-sub{font-size:.82rem;color:var(--muted);margin-bottom:2rem}
+    .mem-head{min-height:55vh;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:1.5rem}
 
-    /* Fanned card stack */
-    .card-fan{position:relative;width:220px;height:310px;margin:0 auto 1.5rem;cursor:pointer}
-    .mem-card{position:absolute;width:200px;height:290px;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.12);cursor:pointer;transition:transform .4s var(--eb);top:10px;left:10px}
-    .mem-card:nth-child(1){transform:rotate(-8deg) translateX(-16px);z-index:1}
-    .mem-card:nth-child(2){transform:rotate(-2deg);z-index:2}
-    .mem-card:nth-child(3){transform:rotate(6deg) translateX(16px);z-index:3}
-    .mem-card.front{transform:rotate(0deg) translateX(0) scale(1.02);z-index:10}
-    .mem-card-inner{width:100%;height:100%;display:flex;flex-direction:column}
-    .mem-card-photo{flex:1;background:var(--ph-bg);display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;overflow:hidden}
-    .mem-card-photo img{width:100%;height:100%;object-fit:cover}
-    .mem-card-footer{background:white;padding:10px 12px;text-align:left}
-    .mem-card-date{font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.05em}
-    .mem-card-caption{font-family:var(--script);font-weight:800;letter-spacing:-0.01em;font-size:1rem;color:var(--text)}
-    .fan-hint{font-size:.8rem;color:var(--muted);font-style:italic}
+    .mem-stack{display:flex;flex-direction:column;align-items:center}
+    .mem-photo{width:min(340px,92%);background:#F7F4EA;padding:10px;border-radius:3px;box-shadow:0 14px 30px rgba(20,60,110,.3),0 2px 6px rgba(20,60,110,.15);margin-top:28px;opacity:0;transform:translateY(100px) rotate(var(--r2)) scale(.9);transition:opacity .8s var(--es),transform .95s var(--eb);position:relative}
+    .mem-photo:first-child{margin-top:0}
+    .mem-photo.in{opacity:1;transform:translateY(0) translateX(var(--dx)) rotate(var(--r1)) scale(1)}
+    .mem-photo.has-cap{padding-bottom:50px}
+    .mem-img{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#BAE3FB,#93C5FD);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;font-size:2.4rem}
+    .mem-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .mem-cap{position:absolute;left:14px;right:14px;bottom:12px;font-family:'Z10Cartoon','Gaegu',cursive;font-weight:700;font-size:1.2rem;color:#3a4a5c;text-align:left}
 
-    /* ══════════ PAGE 6: MEMORY GAME ══════════ */
-    #pg-game{background:linear-gradient(180deg,#F5FBFE 0%,#E5F5FE 100%);padding-top:60px}
-    .game-inner{position:relative;z-index:1;text-align:center;padding:1rem 1rem 3rem;width:100%;max-width:400px}
+    /* ══════════ PAGE 6: WISHES FROM US ══════════ */
+    #pg-wishes{background:linear-gradient(180deg,#4A9BD9 0%,#7DBDE8 45%,#BFE3FA 100%);justify-content:flex-start;scroll-behavior:smooth}
+    .wishes-bubbles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+    .wb{position:absolute;bottom:-80px;width:var(--s);height:var(--s);border-radius:50%;background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.85) 0 8%,rgba(255,255,255,.18) 30%,rgba(190,225,255,.12) 62%,rgba(255,255,255,.5) 100%);border:1px solid rgba(255,255,255,.55);animation:wbRise var(--d) linear var(--dl) infinite;opacity:0}
+    @keyframes wbRise{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateY(-115vh) translateX(var(--x));opacity:0}}
 
-    .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:1.25rem}
-    .flip-card{height:100px;perspective:600px;cursor:pointer}
-    .flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s var(--es)}
-    .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
-    .flip-front,.flip-back{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
-    .flip-front{background:linear-gradient(135deg,#D2EDFD,#B4E1FB);border:2px dashed rgba(255,255,255,.6)}
-    .flip-front-q{font-size:1.5rem;color:rgba(255,255,255,.85)}
-    .flip-back{background:white;transform:rotateY(180deg);box-shadow:0 4px 16px rgba(112,198,248,.15);border:1.5px solid var(--pink-lt)}
-    .flip-back-emoji{font-size:2rem}
-    .flip-back-txt{font-size:.6rem;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+    .wishes-inner{position:relative;z-index:1;width:100%;max-width:420px;padding:5.5rem 1.25rem 4rem;text-align:center}
+    .wishes-head{min-height:62vh;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:2rem}
+    .wishes-title{font-family:var(--script);font-weight:800;letter-spacing:-0.01em;font-size:clamp(2.6rem,12vw,3.6rem);line-height:1;color:#FFF68F;text-shadow:3px 3px 0 #D9472B,5px 5px 0 rgba(217,71,43,.25)}
+    .wishes-for{margin-top:1rem;font-family:var(--script);font-weight:800;font-size:1.2rem;color:#FFF68F;text-shadow:2px 2px 0 #D9472B}
+    .wishes-from{margin-top:.5rem;font-size:.85rem;font-weight:600;color:rgba(255,255,255,.92)}
+    .scroll-cue{margin-top:2.5rem;font-size:.8rem;font-weight:700;color:white;letter-spacing:.06em;display:flex;flex-direction:column;align-items:center;gap:4px;animation:cueBob 1.6s ease-in-out infinite}
+    .scroll-cue span{font-size:1.4rem}
+    @keyframes cueBob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 
-    /* message popup */
-    .game-popup{position:fixed;inset:0;background:rgba(26,48,61,.4);display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;padding:1.5rem}
-    .game-popup.show{opacity:1;pointer-events:all}
-    .game-popup-card{background:white;border-radius:24px;padding:2rem 1.75rem;text-align:center;max-width:320px;width:100%;animation:popCardIn .4s var(--eb) both}
-    @keyframes popCardIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
-    .popup-heart{font-size:40px;margin-bottom:.75rem;animation:cakeFloat 2s ease-in-out infinite}
-    .popup-msg{font-family:var(--script);font-weight:800;letter-spacing:-0.01em;font-size:1.35rem;color:var(--text);line-height:1.5;margin-bottom:1.25rem}
-    .popup-close{width:100%;padding:13px;background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:white;font-family:var(--round);font-size:14px;font-weight:700;border:none;border-radius:50px;cursor:pointer;transition:transform .2s}
-    .popup-close:active{transform:scale(.96)}
+    .wish-item{position:relative;width:min(300px,82%);margin:0 auto 5.5rem;opacity:0;transform:translateY(90px) rotate(var(--r2)) scale(.9);transition:opacity .8s var(--es),transform .9s var(--eb)}
+    .wish-item.in{opacity:1;transform:translateY(0) rotate(var(--r1)) scale(1)}
+    .wish-item.flip{margin-left:auto;margin-right:auto}
+
+    .polaroid{background:#F4F2EC;padding:12px 12px 46px;box-shadow:0 12px 30px rgba(20,60,110,.28);border-radius:3px}
+    .polaroid.back{position:absolute;inset:0;transform:rotate(5deg) translate(12px,-14px);opacity:.95;z-index:0}
+    .polaroid.front{position:relative;z-index:1;text-align:left}
+    .wish-item.flip .polaroid.back{transform:rotate(-5deg) translate(-12px,-14px)}
+    .wish-photo{width:100%;aspect-ratio:4/4.6;background:linear-gradient(135deg,#BAE3FB,#93C5FD);overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative}
+    .wish-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .wish-photo .initial{font-family:var(--script);font-weight:800;font-size:3.5rem;color:rgba(255,255,255,.9)}
+    .polaroid-name{position:absolute;left:14px;bottom:12px;font-family:'Z10Cartoon','Gaegu',cursive;font-weight:700;font-size:1.35rem;color:#3a4a5c}
+
+    .wish-note{position:absolute;z-index:2;right:-26px;bottom:-34px;width:78%;padding:20px 16px 16px;background:#E9DCC0;background-image:radial-gradient(rgba(150,120,70,.18) 1px,transparent 1.5px);background-size:6px 6px;border-radius:4px;box-shadow:0 8px 20px rgba(20,40,70,.25);transform:rotate(-3deg);opacity:0;transition:opacity .6s ease .5s,transform .8s var(--eb) .5s}
+    .wish-item.in .wish-note{opacity:1;transform:rotate(-3deg) translateX(0)}
+    .wish-item:not(.in) .wish-note{transform:rotate(-3deg) translateX(40px)}
+    .wish-item.flip .wish-note{right:auto;left:-26px;transform:rotate(3deg)}
+    .wish-item.flip.in .wish-note{transform:rotate(3deg) translateX(0)}
+    .wish-item.flip:not(.in) .wish-note{transform:rotate(3deg) translateX(-40px)}
+    .wish-note p{font-family:'Z10Cartoon','Gaegu',cursive;font-size:1.02rem;line-height:1.35;color:#4b3f2c;text-align:center}
+    .wish-clip{position:absolute;top:-24px;right:18px;width:20px;height:54px;border:3px solid #C8372D;border-radius:12px;transform:rotate(28deg)}
+    .wish-clip::after{content:'';position:absolute;left:2px;right:2px;top:10px;bottom:-8px;border:3px solid #C8372D;border-radius:10px}
+    .wish-item.flip .wish-clip{right:auto;left:18px;transform:rotate(-28deg)}
+
+    .wishes-end{margin:1rem auto 0;padding:1.5rem 1rem;font-family:var(--script);font-weight:800;font-size:1.3rem;line-height:1.5;color:#FFF68F;text-shadow:2px 2px 0 #D9472B;opacity:0;transform:translateY(40px);transition:all .9s var(--es)}
+    .wishes-end.in{opacity:1;transform:none}
 
     /* ══════════ PAGE 7: LOVE LETTER ══════════ */
     #pg-letter{background:linear-gradient(180deg,#F1F9FE 0%,#E5F5FE 100%);overflow:hidden}
@@ -349,6 +368,26 @@
     .app-footer{position:fixed;bottom:6px;left:0;right:0;text-align:center;font-family:var(--round);font-size:.62rem;color:var(--muted);opacity:.7;z-index:50;pointer-events:none;letter-spacing:.02em}
     .app-footer a{color:var(--pink-deep);font-weight:700;text-decoration:none;pointer-events:auto}
     .app-footer a:hover{text-decoration:underline}
+
+    /* ══════════ SHARED SKY THEME (splash, menu, memories, wishes) ══════════ */
+    #pg-splash,#pg-menu{background:linear-gradient(180deg,#4A9BD9 0%,#7DBDE8 45%,#BFE3FA 100%)}
+    #pg-splash .brand-tag{color:#fff;opacity:.9}
+    .splash-title,.splash-name,.menu-title{font-family:var(--script);font-weight:800;color:#FFF68F;text-shadow:3px 3px 0 #D9472B,5px 5px 0 rgba(217,71,43,.25)}
+    .splash-sub,.menu-sub{color:rgba(255,255,255,.95);font-weight:600}
+    .menu-sub{font-size:.9rem}
+
+    /* ══════════ MEMES PAGE ══════════ */
+    .memes-btn{margin-top:.5rem;padding:14px 26px;max-width:290px;white-space:normal;text-align:center;line-height:1.35;font-size:14px}
+    #pg-memes{background:linear-gradient(180deg,#4A9BD9 0%,#7DBDE8 45%,#BFE3FA 100%);justify-content:flex-start;scroll-behavior:smooth}
+    .memes-inner{position:relative;z-index:1;width:100%;max-width:440px;padding:5.5rem 1.25rem 4rem;text-align:center}
+    .meme-stack{display:flex;flex-direction:column;align-items:center;gap:2.4rem}
+    .meme-photo{width:min(320px,90%);background:#F7F4EA;padding:10px;border-radius:3px;box-shadow:0 14px 30px rgba(20,60,110,.3),0 2px 6px rgba(20,60,110,.15);opacity:0;transform:translateY(100px) rotate(var(--r2)) scale(.9);transition:opacity .8s var(--es),transform .95s var(--eb)}
+    .meme-photo.in{opacity:1;transform:translateY(0) rotate(var(--r1)) scale(1)}
+    .meme-img{min-height:200px;background:linear-gradient(135deg,#BAE3FB,#93C5FD);display:flex;align-items:center;justify-content:center;font-size:2.6rem}
+    .meme-img img{width:100%;height:auto;display:block}
+    .meme-img.loaded{min-height:0;display:block;background:none}
+    .meme-img.loaded .meme-ph{display:none}
+    .meme-cap{font-family:'Z10Cartoon','Gaegu',cursive;font-weight:700;font-size:1.2rem;color:#3a4a5c;text-align:left;padding:8px 4px 2px}
   </style>
   <link rel="icon" type="image/png" href="favicon.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -362,56 +401,56 @@
 <script>
 const C = {
   receiverName:    "Brian",
-  senderName:      "May",
-  pin:             "1111",           // 4-digit PIN (e.g. his birthday DDMM)
-  pinHint:         "What's your birthday? 🎂",
+  senderName:      "Big Cheer Family",
+  pin:             "2016",           // 4-digit PIN (e.g. his birthday DDMM)
+  pinHint:         "BCF စပေါ်ပေါက်တဲ့ခုနှစ် 🤔",
   loveMessage:     "I woke up today thinking about how lucky I am to have you as my best friend. Every single day with you feels like a gift. Thank you for being my favourite person to laugh with, lean on, and get into all kinds of trouble with. Here's to making a million more memories together. Happy Birthday! 🎉",
 
-  cakeWishes: [
-    "May all your dreams come true ✨",
-    "Stay healthy and happy 💖",
-    "BFF forever 🌸",
-    "The best is yet to come 🎂",
-    "You deserve all the happiness ❤️"
+  /* Memes of Brian: add or remove entries as you like. Captions are optional. */
+  memes: [
+    { photo:'meme1.jpg', caption:'' },
+    { photo:'meme2.jpg', caption:'' },
+    { photo:'meme3.jpg', caption:'' },
+    { photo:'meme4.jpg', caption:'' },
+    { photo:'meme5.jpg', caption:'' },
+    { photo:'meme6.jpg', caption:'' },
+    { photo:'meme7.jpg', caption:'' },
+    { photo:'meme8.jpg', caption:'' },
+    { photo:'meme9.jpg', caption:'' },
+    { photo:'meme11.jpg', caption:'' },
+    { photo:'meme10.jpg', caption:'' },
   ],
 
-  /* Why You're The Best — 12 cards */
-  cards: [
-    { emoji:'🌸', color:'#E5F5FE', msg:'The day we became friends changed everything 🌸' },
-    { emoji:'😂', color:'#D2EDFD', msg:'You make even boring days fun 😂' },
-    { emoji:'⭐', color:'#E2F3FD', msg:'You are the brightest star in my life ⭐' },
-    { emoji:'🎧', color:'#E2F3FD', msg:'Best partner in crime for any plan, anytime 🎧' },
-    { emoji:'🌈', color:'#E2F3FD', msg:'You are my rainbow after every storm 🌈' },
-    { emoji:'🫶', color:'#DAF0FD', msg:'Ride or die, always and forever 🫶' },
-    { emoji:'💌', color:'#E2F3FD', msg:'Thank you for always listening without judging 💌' },
-    { emoji:'🌹', color:'#DAF0FD', msg:'You are one of the kindest souls I know 🌹' },
-    { emoji:'✨', color:'#E2F3FD', msg:'You make everything more fun just by being there ✨' },
-    { emoji:'🍓', color:'#E2F3FD', msg:'Sweet, a little chaotic, and 100% my favorite 🍓' },
-    { emoji:'🎁', color:'#E2F3FD', msg:'Having you as a friend is a gift 🎁' },
-    { emoji:'💫', color:'#E2F3FD', msg:'Wishing you all the good things this year 💫' },
+  /* Wishes From Us: one entry per member (8 members). Photos go next to index.html */
+  wishes: [
+    { name:'Myat Noe', photo:'myatnoe.jpg', wish:'စော်ကြည်ထီပေါက် နိဗ္ဗာန်ရောက်ပါစေ သူငယ်ချင်း ... Miss you and love you 😘' },
+    { name:'Swan', photo:'swan.jpg', wish:'Happy birthday Brian! Thank you for always being the glue of our group. Love you loads!' },
+    { name:'Cho Myat Hnin', photo:'chog.jpg', wish:'May this year bring you all the success and happiness you deserve. Cheers to you!' },
+    { name:'Swe Lei Aung', photo:'sweleiaung.jpg', wish:'Happy Birthday ပါအကြီးဆုံးရေ။ပျော်ရွှင်စရာမွေးနေ့လေးဖြစ်ပါစေ။ဖြစ်ချင်တဲ့ရည်မှန်းချက်တွေလဲအမြန်ဆုံးပြည့်ပါစေ🤍🤍🤍' },
+    { name:'Chan Moe', photo:'chanmoe.jpg', wish:'Stay as awesome as you are. Wishing you good health, good food and good vibes.' },
+    { name:'Aye Aye Aung', photo:'ayeaung.jpg', wish:'Happy Birthday ပါ ဂျင်းရေ ... ငါတို့အဖွဲ့ရဲ့ အသက်အကြီးဆုံးမွေးနေ့မှာပျော်ရွှင်ပါစေ .. အခုမွေးနေ့ကစပြီး ဒီထပ်မက ဘဝမှာအစဉ်ပြေပြီး ဖြစ်ချင်တဲ့ဆန္ဒတွေလည်းဖြစ်ပြီး အမနဲ့လည်း သက်ဆုံးတိုင်ချစ်ပြီးပျော်ရွှင်တဲ့ဘဝလေးကို ပိုင်ဆိုင်နိုင်ပါစေလို့ ဆုတောင်းလိုက်ပါတယ်' },
+    { name:'Chan Myat', photo:'chanmyat.jpg', wish:'Happy birthday to the kindest soul I know. May all your dreams come true this year.' },
   ],
 
   /* Memory scrapbook cards — 3 cards shown in the fan */
   
   memCards: [
-  {
-    photo:'memory1.jpg',
-    date:'Sep 09, 2022',
-    caption:'Our Trip Together'
-  },
-  {
-    photo:'memory2.jpg',
-    date:'Feb 14, 2023',
-    caption:'That memorable day'
-  },
-  {
-    photo:'memory3.jpg',
-    date:'Jul 20, 2023',
-    caption:'Our first selfie'
-  },
+    { photo:'memory1.jpg',  caption:'Our Favorite Photo' },
+    { photo:'memory2.jpg',  caption:'Our First Photo' },
+    { photo:'memory3.jpg',  caption:'Back in the Day' },
+    { photo:'memory4.jpg',  caption:'Growing Up Together' },
+    { photo:'memory5.jpg',  caption:'Just Us Being Us' },
+    { photo:'memory6.jpg',  caption:'The Good Old Days' },
+    { photo:'memory7.jpg',  caption:'Another One for the Memories' },
+    { photo:'memory8.jpg',  caption:'Same Us, Different Day' },
+    { photo:'memory9.jpg',  caption:'The Usual Chaos' },
+    { photo:'memory10.jpg', caption:'One of Many' },
+    { photo:'memory11.jpg', caption:'Still Us' },
+    { photo:'memory12.jpg', caption:'More Memories to Come' },
+    { photo:'memory13.jpg', caption:'Look How Far We’ve Come' },
+    { photo:'memory14.jpg', caption:'No Matter the Distance' },
+    { photo:'memory15.jpg', caption:'Forever My BFF' },
   ],
-  
-
   /* Photo URLs — leave empty for emoji placeholder */
   /* lockPhotos:  ['https://...','https://...','https://...'] */
   lockPhotos:   [],
@@ -426,14 +465,14 @@ const C = {
 <!-- ═══════════ PAGE 1: SPLASH ═══════════ -->
 <div class="page active" id="pg-splash">
   <div class="content">
-    <img src="images/main/sochic-logo.png" alt="So Chic Gifts" class="sochic-logo"/>
+    <img src="main-logo.png" alt="So Chic Gifts" class="sochic-logo"/>
     <span class="brand-tag">So Chic Gifts · Special Edition</span>
 
     <div class="cake-wrap">
       <div class="cake-heart" style="top:0;left:10px">⭐</div>
       <div class="cake-heart" style="top:10px;right:10px;animation-delay:.8s;font-size:11px">✨</div>
       <div class="cake-heart" style="top:30px;left:0;animation-delay:1.4s;font-size:11px">🎉</div>
-      <img src="images/templates/better-together/birthdaycake.png" alt="Birthday Cake" class="cake-img"/>
+      <img src="birthdaycake.png" alt="Birthday Cake" class="cake-img"/>
     </div>
 
     <p class="splash-title">Happy Birthday</p>
@@ -493,10 +532,10 @@ const C = {
         <p class="menu-card-sub">Every moment with you is a gift ✨</p>
         <span class="menu-card-heart">✦</span>
       </div>
-      <div class="menu-card" onclick="goTo('pg-game')">
-        <div class="menu-card-icon">🌟</div>
-        <p class="menu-card-title">BFF Card</p>
-        <p class="menu-card-sub">Tap a card to find out ✨</p>
+      <div class="menu-card" onclick="goTo('pg-wishes')">
+        <div class="menu-card-icon">🫧</div>
+        <p class="menu-card-title">Wishes From Us</p>
+        <p class="menu-card-sub">8 wishes from your Big Cheer Family 💙</p>
         <span class="menu-card-heart">✦</span>
       </div>
       <div class="menu-card" onclick="goTo('pg-cake')">
@@ -520,25 +559,41 @@ const C = {
 <div class="page" id="pg-memories">
   <button class="back-btn" onclick="goTo('pg-menu')">‹ Back</button>
   <div class="memories-inner">
-    <p class="section-title">Our Moments Together</p>
-    <p class="section-sub">tap the cards 🌸</p>
-    <div class="card-fan" id="card-fan">
-      <!-- filled by JS -->
+    <div class="mem-head">
+      <p class="wishes-title">Our<br/>Memories</p>
+      <p class="wishes-from">10 moments with the Big Cheer Family 📷</p>
+      <div class="scroll-cue">scroll down<span>⌄</span></div>
     </div>
-    <p class="fan-hint">Tap to browse through our memories</p>
+    <div class="mem-stack" id="mem-stack"><!-- filled by JS --></div>
   </div>
 </div>
 
-
-<!-- ═══════════ PAGE 6: MEMORY GAME ═══════════ -->
-<div class="page" id="pg-game">
+<!-- ═══════════ MEMES PAGE ═══════════ -->
+<div class="page" id="pg-memes">
   <button class="back-btn" onclick="goTo('pg-menu')">‹ Back</button>
-  <div class="game-inner">
-    <p class="section-title">Why You're The Best</p>
-    <p class="section-sub">Tap each card to reveal a reason ✨</p>
-    <div class="card-grid" id="card-grid">
-      <!-- filled by JS -->
+  <div class="memes-inner">
+    <div class="mem-head">
+      <p class="wishes-title">Our Fav<br/>Memes of You</p>
+      <p class="wishes-from">the ones we can't stop laughing at 😂</p>
+      <div class="scroll-cue">scroll down<span>⌄</span></div>
     </div>
+    <div class="meme-stack" id="meme-stack"><!-- filled by JS --></div>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 6: WISHES FROM US ═══════════ -->
+<div class="page" id="pg-wishes">
+  <button class="back-btn" onclick="goTo('pg-menu')">‹ Back</button>
+  <div class="wishes-bubbles" id="wishes-bubbles"></div>
+  <div class="wishes-inner">
+    <div class="wishes-head">
+      <p class="wishes-title">Wishes<br/>From Us</p>
+      <p class="wishes-for" id="wishes-for"></p>
+      <p class="wishes-from" id="wishes-from"></p>
+      <div class="scroll-cue">scroll down<span>⌄</span></div>
+    </div>
+    <div id="wishes-list"><!-- filled by JS --></div>
+    <p class="wishes-end" id="wishes-end"></p>
   </div>
 </div>
 
@@ -552,7 +607,7 @@ const C = {
   <div class="cake-scene">
     <div id="musicPlayer">
       <div class="mp-top">
-        <div class="mp-cover"><img src="images/templates/better-together/song-cover.jpeg" alt=""></div>
+        <div class="mp-cover"><img src="song-cover.jpeg" alt=""></div>
         <div class="mp-info">
           <div class="mp-title">Happy Birthday</div>
           <div class="mp-artist">For You</div>
@@ -672,7 +727,7 @@ const C = {
     <!-- Wish reveal (hidden until all blown) -->
     <div class="wish-reveal" id="wish-reveal">
       <p class="wish-banner" id="wish-banner">Your wish is granted! 🎉</p>
-      <div id="wish-pills"></div>
+      <button class="start-btn memes-btn" onclick="goTo('pg-memes')">Click here to see our fav memes of you 😂</button>
       
 <!-- ═══════════ SHARE WRAP ═══════════ -->
       <div class="share-wrap" id="share-wrap">
@@ -686,16 +741,6 @@ const C = {
 </div>
 
 <div class="toast" id="toast"></div>
-
-<!-- Game popup -->
-<div class="game-popup" id="game-popup" onclick="closePopup()">
-  <div class="game-popup-card" onclick="event.stopPropagation()">
-    <div class="popup-heart" id="popup-emoji">💝</div>
-    <p class="popup-msg" id="popup-msg">A sweet message for you</p>
-    <button class="popup-close" onclick="closePopup()">Close</button>
-  </div>
-</div>
-
 
 <!-- ═══════════ PAGE 7: LOVE LETTER ═══════════ -->
 <div class="page" id="pg-letter">
@@ -807,14 +852,14 @@ const C = {
       <div class="ll-photos">
         <div class="ll-photo-wrap">
           <div class="ll-photo-ring">
-            <img src="images/templates/better-together/memory1.jpg" alt="Sender">
+            <img src="memory1.jpg" alt="Sender">
           </div>
           <div class="ll-photo-name" id="ll-photo-name-0">Sender</div>
         </div>
         <div class="ll-conn">✦</div>
         <div class="ll-photo-wrap">
           <div class="ll-photo-ring">
-            <img src="images/templates/better-together/memory2.jpg" alt="Receiver">
+            <img src="memory2.jpg" alt="Receiver">
           </div>
           <div class="ll-photo-name" id="ll-photo-name-1">Receiver</div>
         </div>
@@ -859,51 +904,100 @@ document.getElementById('splash-name').textContent = C.receiverName + '!';
 document.getElementById('lock-hint').innerHTML     = C.pinHint + '<br/><small style="opacity:.7">Enter your 4-digit code</small>';
 /* Love letter content (see LOVE LETTER script block below for setup) */
 
-/* Memory fan cards */
-const fan = document.getElementById('card-fan');
+/* Memories: tilted photo stack that reveals on scroll */
+const memStack = document.getElementById('mem-stack');
+const memPage  = document.getElementById('pg-memories');
+const memTilts = [-3, 2.5, -2, 3, -2.5, 2, -3, 2.5, -2, 3];
+const memShift = [-14, 12, -10, 14, -12, 10, -14, 12, -10, 14];
 C.memCards.forEach((mc, i) => {
-  const card = document.createElement('div');
-  card.className = 'mem-card';
-  card.innerHTML = `
-    <div class="mem-card-inner">
-      <div class="mem-card-photo" style="background:${mc.bg}">
-        ${mc.photo ? `<img src="images/templates/better-together/${mc.photo}" alt="Memory"/>` : `<span style="font-size:3rem">${mc.emoji}</span>`}
-      </div>
-      <div class="mem-card-footer">
-        <span class="mem-card-date">${mc.date}</span>
-        <p class="mem-card-caption">${mc.caption}</p>
-      </div>
-    </div>`;
-  fan.appendChild(card);
+  const el = document.createElement('div');
+  el.className = 'mem-photo' + (mc.caption ? ' has-cap' : '');
+  const t = memTilts[i % memTilts.length];
+  el.style.setProperty('--r1', t + 'deg');
+  el.style.setProperty('--r2', (t * 3) + 'deg');
+  el.style.setProperty('--dx', memShift[i % memShift.length] + 'px');
+  el.innerHTML = `
+    <div class="mem-img">📷
+      <img src="${mc.photo}" alt="Memory ${i + 1}" onerror="this.remove()"/>
+    </div>
+    ${mc.caption ? `<span class="mem-cap">${mc.caption}</span>` : ''}`;
+  memStack.appendChild(el);
 });
-/* tap anywhere on the stack: front card slides to the back, next card comes forward */
-fan.addEventListener('click', () => {
-  const cards = fan.children;
-  if (!cards.length) return;
-  const topCard = cards[cards.length - 1];
-  fan.insertBefore(topCard, fan.firstChild);
-});
-
-/* Game cards */
-const grid = document.getElementById('card-grid');
-C.cards.forEach((cd, i) => {
-  const cell = document.createElement('div');
-  cell.className = 'flip-card';
-  cell.innerHTML = `
-    <div class="flip-inner">
-      <div class="flip-front"><span class="flip-front-q">?</span></div>
-      <div class="flip-back" style="background:${cd.color}">
-        <span class="flip-back-emoji">${cd.emoji}</span>
-      </div>
-    </div>`;
-  cell.addEventListener('click', () => {
-    if (!cell.classList.contains('flipped')) {
-      cell.classList.add('flipped');
-      setTimeout(() => showPopup(cd.emoji, cd.msg), 500);
-    }
+const memObserver = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); memObserver.unobserve(en.target); }
   });
-  grid.appendChild(cell);
+}, { root: memPage, threshold: 0.2 });
+document.querySelectorAll('.mem-photo').forEach(el => memObserver.observe(el));
+
+/* Memes: reveal on scroll */
+const memeStack = document.getElementById('meme-stack');
+const memePage  = document.getElementById('pg-memes');
+const memeTilts = [-2.5, 2, -2, 3, -3, 2.5];
+C.memes.forEach((m, i) => {
+  const el = document.createElement('div');
+  el.className = 'meme-photo';
+  const t = memeTilts[i % memeTilts.length];
+  el.style.setProperty('--r1', t + 'deg');
+  el.style.setProperty('--r2', (t * 3) + 'deg');
+  el.innerHTML = `
+    <div class="meme-img">
+      <span class="meme-ph">😂</span>
+      <img src="${m.photo}" alt="Meme ${i + 1}" onload="this.parentElement.classList.add('loaded')" onerror="this.remove()"/>
+    </div>
+    ${m.caption ? `<p class="meme-cap">${m.caption}</p>` : ''}`;
+  memeStack.appendChild(el);
 });
+const memeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); memeObserver.unobserve(en.target); }
+  });
+}, { root: memePage, threshold: 0.2 });
+document.querySelectorAll('.meme-photo').forEach(el => memeObserver.observe(el));
+
+/* Wishes From Us */
+document.getElementById('wishes-for').textContent  = 'Happy Birthday, ' + C.receiverName;
+document.getElementById('wishes-from').textContent = 'with love from ' + C.senderName + ' 💙';
+document.getElementById('wishes-end').innerHTML    = 'That\'s all ' + C.wishes.length + ' of us,<br/>and we love you, ' + C.receiverName + ' 💙';
+const wishList = document.getElementById('wishes-list');
+const wishPage = document.getElementById('pg-wishes');
+C.wishes.forEach((w, i) => {
+  const flip = i % 2 === 1;
+  const el = document.createElement('article');
+  el.className = 'wish-item' + (flip ? ' flip' : '');
+  el.style.setProperty('--r1', (flip ? 2 : -2) + 'deg');
+  el.style.setProperty('--r2', (flip ? 8 : -8) + 'deg');
+  const initial = (w.name || '?').trim().charAt(0).toUpperCase();
+  el.innerHTML = `
+    <div class="polaroid back"></div>
+    <div class="polaroid front">
+      <div class="wish-photo">
+        <span class="initial">${initial}</span>
+        ${w.photo ? `<img src="${w.photo}" alt="${w.name}" style="position:absolute;inset:0" onerror="this.remove()"/>` : ''}
+      </div>
+      <span class="polaroid-name">${w.name}</span>
+    </div>
+    <div class="wish-note">
+      <span class="wish-clip"></span>
+      <p>${w.wish}</p>
+    </div>`;
+  wishList.appendChild(el);
+});
+/* reveal each wish as it scrolls into view */
+const wishObserver = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); wishObserver.unobserve(en.target); }
+  });
+}, { root: wishPage, threshold: 0.3 });
+document.querySelectorAll('.wish-item, .wishes-end').forEach(el => wishObserver.observe(el));
+/* floating bubbles */
+const wb = document.getElementById('wishes-bubbles');
+for (let i = 0; i < 9; i++) {
+  const b = document.createElement('span');
+  b.className = 'wb';
+  b.style.cssText = `left:${Math.random()*95}%;--s:${24+Math.random()*50}px;--d:${12+Math.random()*10}s;--dl:${-Math.random()*14}s;--x:${(Math.random()*80-40)}px`;
+  wb.appendChild(b);
+}
 
 /* Floating hearts background */
 const fhBg = document.getElementById('fh-bg');
@@ -967,16 +1061,6 @@ function checkPin() {
     document.getElementById('pin-error').textContent = 'Oops! Try again 💕';
     setTimeout(() => { pinBuffer=''; updatePinDisplay(); document.getElementById('pin-error').textContent=''; }, 900);
   }
-}
-
-/* ══════ GAME POPUP ══════ */
-function showPopup(emoji, msg) {
-  document.getElementById('popup-emoji').textContent = emoji;
-  document.getElementById('popup-msg').textContent   = msg;
-  document.getElementById('game-popup').classList.add('show');
-}
-function closePopup() {
-  document.getElementById('game-popup').classList.remove('show');
 }
 
 /* ══════ LOVE LETTER (fancy envelope + paper) ══════ */
@@ -1249,12 +1333,6 @@ function allCandlesBlown(){
 }
 
 
-/* Wish pills */
-const wishPillsEl = document.getElementById('wish-pills');
-C.cakeWishes.forEach((w,i) => {
-  const d=document.createElement('div');d.className='wish-pill';
-  d.style.animationDelay=`${.2+i*.1}s`;d.textContent=w;wishPillsEl.appendChild(d);
-});
 </script>
 <footer class="app-footer">
   Made with love by <a href="https://sochicgifts.vercel.app" target="_blank" rel="noopener">So Chic Gifts</a>
