@@ -388,12 +388,6 @@
     .meme-img.loaded{min-height:0;display:block;background:none}
     .meme-img.loaded .meme-ph{display:none}
     .meme-cap{font-family:'Z10Cartoon','Gaegu',cursive;font-weight:700;font-size:1.2rem;color:#3a4a5c;text-align:left;padding:8px 4px 2px}
-  
-    /* Letter banner photo */
-    .ll-photos{display:block;margin:22px 0}
-    .ll-banner{position:relative;width:100%;aspect-ratio:7/5;border-radius:14px;overflow:hidden;border:2px solid rgba(44,123,168,.2);background:linear-gradient(135deg,rgba(45,127,175,.07),rgba(115,180,218,.12));display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:0 6px 24px rgba(44,123,168,.18)}
-    .ll-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-    .ll-banner.loaded .ll-banner-ph{display:none}
   </style>
   <link rel="icon" type="image/png" href="favicon.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -410,7 +404,7 @@ const C = {
   senderName:      "Big Cheer Family",
   pin:             "2016",           // 4-digit PIN (e.g. his birthday DDMM)
   pinHint:         "BCF စပေါ်ပေါက်တဲ့ခုနှစ် 🤔",
-  loveMessage:     "Happy Birthday ပါ Brian ရေ 🎂🎉💛 မွေးနေ့မှစပြီး ပျော်ရွှင်စရာတွေနဲ့ ကံကောင်းခြင်းတွေအများကြီး ရရှိပါစေ။ လိုချင်တာမှန်သမျှလည်း အဆင်ပြေပြေနဲ့ ပြည့်စုံပါစေ။ 🫶🏻 Big Cheer family ရဲ့ အစိတ်အပိုင်းတစ်ယောက်ဖြစ်ပေးလို့လည်း အမြဲကျေးဇူးတင်ပါတယ်။ ရှေ့ဆက်မယ့်နှစ်တွေမှာလည်း ငါတို့ပျော်စရာအမှတ်တရတွေ အများကြီး အတူတူဖန်တီးနိုင်ကြပါစေ။ ❤️ မွေးနေ့ပျော်ရွှင်ပါစေ Brian ရေ! 🥳 We Love You! 💛",
+  loveMessage:     "I woke up today thinking about how lucky I am to have you as my best friend. Every single day with you feels like a gift. Thank you for being my favourite person to laugh with, lean on, and get into all kinds of trouble with. Here's to making a million more memories together. Happy Birthday! 🎉",
 
   /* Memes of Brian: add or remove entries as you like. Captions are optional. */
   memes: [
@@ -444,7 +438,7 @@ const C = {
     { photo:'memory1.jpg',  caption:'Our Favorite Photo' },
     { photo:'memory2.jpg',  caption:'Our First Photo' },
     { photo:'memory3.jpg',  caption:'Back in the Day' },
-    { photo:'memory4.jpg',  caption:'Back When We Were Kids' },
+    { photo:'memory4.jpg',  caption:'Growing Up Together' },
     { photo:'memory5.jpg',  caption:'Just Us Being Us' },
     { photo:'memory6.jpg',  caption:'The Good Old Days' },
     { photo:'memory7.jpg',  caption:'Another One for the Memories' },
@@ -455,12 +449,7 @@ const C = {
     { photo:'memory12.jpg', caption:'More Memories to Come' },
     { photo:'memory13.jpg', caption:'Look How Far We’ve Come' },
     { photo:'memory14.jpg', caption:'No Matter the Distance' },
-    { photo:'memory15.jpg', caption:'Growing Up Together' },
-    { photo:'memory16.jpg', caption:'Us. Always.' },
-    { photo:'memory17.jpg', caption:'Certified BFF Moment' },
-    { photo:'memory18.jpg', caption:'Partners in Crime' },
-    { photo:'memory20.jpg', caption:'Forever a Memory' },
-    { photo:'memory19.jpg', caption:'Forever My BFF' },
+    { photo:'memory15.jpg', caption:'Forever My BFF' },
   ],
   /* Photo URLs — leave empty for emoji placeholder */
   /* lockPhotos:  ['https://...','https://...','https://...'] */
@@ -621,7 +610,7 @@ const C = {
         <div class="mp-cover"><img src="song-cover.jpeg" alt=""></div>
         <div class="mp-info">
           <div class="mp-title">Happy Birthday</div>
-          <div class="mp-artist">For You</div>
+          <div class="mp-artist">Brian</div>
         </div>
         <div class="mp-wave" id="mp-wave"><span></span><span></span><span></span><span></span></div>
       </div>
@@ -857,13 +846,22 @@ const C = {
         <div class="ll-lh-date" id="ll-date"></div>
         <div class="ll-lh-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
         <div class="ll-lh-title" id="ll-lh-title">My Dearest</div>
-        <div class="ll-lh-sub">A Note From BCF</div>
+        <div class="ll-lh-sub">A Note From Your Bestie</div>
       </div>
 
       <div class="ll-photos">
-        <div class="ll-banner">
-          <span class="ll-banner-ph">📷</span>
-          <img src="letter-banner.jpg" alt="Big Cheer Family and Brian" onload="this.parentElement.classList.add('loaded')" onerror="this.remove()">
+        <div class="ll-photo-wrap">
+          <div class="ll-photo-ring">
+            <img src="memory1.jpg" alt="Sender">
+          </div>
+          <div class="ll-photo-name" id="ll-photo-name-0">Sender</div>
+        </div>
+        <div class="ll-conn">✦</div>
+        <div class="ll-photo-wrap">
+          <div class="ll-photo-ring">
+            <img src="memory2.jpg" alt="Receiver">
+          </div>
+          <div class="ll-photo-name" id="ll-photo-name-1">Receiver</div>
         </div>
       </div>
 
@@ -1073,6 +1071,8 @@ document.getElementById('ll-lh-title').textContent = `Happy Birthday, ${C.receiv
 document.getElementById('ll-salute').textContent = `Dear ${C.receiverName},`;
 document.getElementById('ll-body-text').innerHTML = `<p>${C.loveMessage}</p>`;
 document.getElementById('ll-sig-name').textContent = `${C.senderName} ✦`;
+document.getElementById('ll-photo-name-0').textContent = C.senderName;
+document.getElementById('ll-photo-name-1').textContent = C.receiverName;
 (function(){
   const MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
   const now=new Date();
